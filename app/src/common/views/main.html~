@@ -1,0 +1,22 @@
+<div class="header">
+  <h3 class="text-muted">Fund Display</h3>
+</div>
+
+<div ng-app="fundDisplayApp">
+	<div ng-controller="MainCtrl">
+		<div class="hscroll">
+			<table class="table">
+				<thead>
+					<tr>
+						<th ng-repeat="key in unsort(fundData)">{{key}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr> 
+						<td ng-repeat="key in unsort(fundData)" ng-init="value = fundData[key]">{{value}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

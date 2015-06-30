@@ -1,0 +1,33 @@
+'use strict';
+
+angular.module('fundDisplayApp')
+    .controller('MainCtrl', function ($scope, $http) {
+			$scope.fundData = [];
+      $http.get('fund.json').success(function(result){
+          $scope.fundData = result.fund;
+
+			// I hardcoded the dates for simplicity
+			$scope.fundData["Date"] = $scope.fundData["Date"].replace(/[\/]/g,".");
+			$scope.fundData["Launch Date"] = $scope.fundData["Launch Date"].replace(/[\/]/g,".");
+
+			// I cheated on this regex, but I learned something new.
+			// While a search for any number could be used, I felt that "hardcoding" it would be best, numbers != money
+			$scope.fundData["Fund Size"] = $scope.fundData["Fund Size"].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); 
+
+			// Search for any blanks, can include "" or "-"
+			for(var i in $scope.fundData){
+				if($scope.fundData[i] == "" || $scope.fundData[i] == "-")
+					$scope.fundData[i] = "- -";
+			}
+
+			// 
+		  $scope.unsort = function(obj){
+		      if (!obj) {
+		          return [];
+		      }
+		      return Object.keys(obj);
+		  }
+     })
+  });
+
+
